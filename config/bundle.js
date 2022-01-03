@@ -12,7 +12,7 @@ fs.emptyDirSync(basePath);
 
 apps.forEach(appPath => {
     // 获取应用名
-    const dirname = (appPath.match(/.*[\\\/](.*)[\\\/][dist|build]/) || [])[1];
-    const dest = path.resolve(basePath, `./${/sub-.+/.test(dirname) ? 'subapp' : ''}/${dirname}`);
+    const appName = require(path.resolve(appPath, '../package.json'))?.name;
+    const dest = path.resolve(basePath, `./${/sub-.+/.test(appName) ? 'subapp' : ''}/${appName}`);
     fs.copy(appPath, dest, { overwrite: true });
 });
